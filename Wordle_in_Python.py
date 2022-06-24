@@ -6,7 +6,7 @@ import random
 
 ## This function reads the 5_letter_words.txt file and returns a list of all the words in the file.
 def word_list():
-    path="5_letter_words.txt"  ##put text the file path in here
+    path="5_letter_words.txt"                                                ##put text the file path in here
     wordlist = []
     with open(path, 'r') as file:
         for line in file:
@@ -39,20 +39,22 @@ def  is_real_word(guess, wordlist):
 ##If a letter is used twice in the guessed word and exists only once in the word to be found, then only one letter in the return string is marked. In case one of the two letters is positioned correctly, then this letter is marked with an X in the return string. For example, check_guess("carat", "train") should return _OO_O. Another example, check_guess("taunt", "train") should return XO_O_
 
 def check_guess(guess, find):
-    list_guess = list(guess)     ##converting string to list
-    list_find = list(find)     ##converting string to list
-    string_xo = "_____"        ##This string will hold the output pattern. by defaut it is considered that, the guess word doesnot match with the find word at all so pattern is "_____"
+    list_guess = list(guess)                                            ##converting string to list
+    list_find = list(find)                                              ##converting string to list
+    string_xo = "_____"                                                 ##This string will hold the output pattern. by defaut it is considered that, the guess word doesnot match with the find word at all so pattern is "_____"
 
-    for i in range(len(list_guess)):      ##this loop finds if any character of the guess word and the find word has has same value while having SAME index number
+
+    for i in range(len(list_guess)):                                    ##this loop finds if any character of the guess word and the find word has has same value while having SAME index number
         if (list_guess[i] == list_find[i]):
-            string_xo = string_xo[0:i] + 'X' + string_xo[i + 1:]    ##replaces '_' character of the string_xo string with character 'X'
-            list_find[i] = ' '   ## raplace the character at the fllowing index of list_find list with space , to avoid comparing with the same element over and over again
+            string_xo = string_xo[0:i] + 'X' + string_xo[i + 1:]        ##replaces '_' character of the string_xo string with character 'X'
+            list_find[i] = ' '                                          ## raplace the character at the fllowing index of list_find list with space , to avoid comparing with the same element over and over again
 
-    for i in range(len(list_guess)):     ##this loop finds if any character of the guess word and the find word has has same value while having DIFFERENT index number
+
+    for i in range(len(list_guess)):                                    ##this loop finds if any character of the guess word and the find word has has same value while having DIFFERENT index number
         for j in range(len(list_find)):
             if (list_guess[i] == list_find[j] and string_xo[i]=='_'):
-                string_xo = string_xo[0:i] + 'O' + string_xo[i + 1:]     ##replaces '_' character of the string_xo string with character 'O'
-                list_find[j] = ' '    ## raplace the character at the fllowing index of list_find list with space , to avoid comparing with the same element over and over again
+                string_xo = string_xo[0:i] + 'O' + string_xo[i + 1:]    ##replaces '_' character of the string_xo string with character 'O'
+                list_find[j] = ' '                                      ## raplace the character at the fllowing index of list_find list with space , to avoid comparing with the same element over and over again
     print(string_xo);
     #print(list_find);
     return string_xo
@@ -64,7 +66,7 @@ def check_guess(guess, find):
 def next_guess(wordlist):
     user_input=input("Please enter a guess: ")
     user_input=user_input.lower()
-    while (is_real_word(user_input,wordlist)==False):  ## while loop keeps running until a word from the word list is gussed
+    while (is_real_word(user_input,wordlist)==False):                   ## while loop keeps running until a word from the word list is gussed
         print("That's not a real word!")
         user_input = input("Please enter a guess: ")
         user_input = user_input.lower()
@@ -83,16 +85,16 @@ def next_guess(wordlist):
 
 def play():
     wordlist=word_list()
-    randomword=random_word(wordlist)  #selects a random word from the word list
+    randomword=random_word(wordlist)                                ##selects a random word from the word list
     ##print(randomword)
     count=0
-    win_probability=False    ## false means users has not won or lost yet
-    while(win_probability==False and count<6):    ##until user wins or looses or tries six times the while loop keeps running,
+    win_probability=False                                           ## false means users has not won or lost yet
+    while(win_probability==False and count<6):                      ##until user wins or looses or tries six times the while loop keeps running,
         count=count+1
-        if(check_guess(next_guess(wordlist),randomword)=="XXXXX"):    ## if user gusses the word correctly he/she wins
+        if(check_guess(next_guess(wordlist),randomword)=="XXXXX"):  ## if user gusses the word correctly he/she wins
             print("You won!")
             win_probability=True
-        elif(count==6 and win_probability==False):   ## users tries 6 times still could not guess correctly, he/she looses
+        elif(count==6 and win_probability==False):                  ## users tries 6 times still could not guess correctly, he/she looses
             win_probability = True
             print("You lost!")
             print("The word was: "+randomword)
